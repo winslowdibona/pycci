@@ -1,0 +1,6 @@
+wheel
+setuptools
+twine
+flake8
+requests
+pyyaml
