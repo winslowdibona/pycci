@@ -80,17 +80,20 @@ result = project_api.get_pipelines(page_token=None)
 next_page_token = result['next_page_token']
 pipelines = result['items']
 
-pipeline_api = PipelineApi('Pipeline id')
+pipeline_api = PipelineApi(pipelines[0])
 result = pipeline_api.get_workflows(failed_only=True, page_token=None)
 next_page_token = result['next_page_token']
 workflows = result['items']
 
-workflow_api = WorkflowApi('Workflow id')
+workflow_api = WorkflowApi(workflows[0])
 result = workflow_api.get_jobs(type=JOBTYPE.BACKEND, failed_only=True, page_token=None)
 next_page_token = result['next_page_token']
 jobs = result['items']
 
-job_api = JobApi('Job id', 'Job Number', 'Project Slug')
+job_id = jobs[0]['id']
+job_number = jobs[0]['number']
+job_project_slug = jobs[0]['project_slug']
+job_api = JobApi(job_id, job_number, job_project_slug)
 # project slug looks like gh/org/project where gh is your version control
 result = job_api.get_tests(failed_only=True, page_token=None)
 next_page_token = result['next_page_token']
